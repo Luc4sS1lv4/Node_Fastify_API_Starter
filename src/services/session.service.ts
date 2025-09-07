@@ -13,7 +13,7 @@ export class SessionService{
             const senhaVerificada = await bcrypt.compare(senha, userExist.senha)
         if(!senhaVerificada) throw new Error("Senha incorreta")
 
-            const token = jwt.sign({id: userExist.id}, "lucas132", {expiresIn:"1h"})
+            const token = jwt.sign({id: userExist.id}, "lucas132")
 
             return token
     }
