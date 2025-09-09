@@ -2,15 +2,23 @@ import type { FastifyInstance } from "fastify"
 import { userController, sessionController, sessionAuth, taskControllerCreat, taskListController } from "../factory/Inject.js"
 
 
+
+
 async function RouterRout(fastify: FastifyInstance) {
+    
 
     fastify.post("/signup", userController.createUser)
-
     fastify.post("/session", sessionController.session)
+    
+    fastify.register(async (privateRoute: any) => {
+        privateRoute.addHook("preHandler", sessionAuth.authLogin)
 
-    fastify.post("/tasks",{preHandler: sessionAuth.authLogin}, taskControllerCreat.creatTask)
+        privateRoute.post("/tasks",taskControllerCreat.creatTask)
+        privateRoute.get("/tasks",taskListController.Tasklist)
+    })
+    
 
-    fastify.get("/tasks",{preHandler: sessionAuth.authLogin}, taskListController.Tasklist)
+    
 
 }
-export default RouterRout
+export default RouterRout 
