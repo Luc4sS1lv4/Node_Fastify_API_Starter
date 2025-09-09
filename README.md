@@ -10,7 +10,7 @@ O desafio consiste em:
 
 Criar endpoints
 ####################POST /signup -> Criar conta#############################
-Fields: name, email and password.
+ Fields: name, email and password.
 
 Verificar se o usuário já tem uma conta. Se sim retornar erro 400.
 A senha precisa ser armazenada no db com hash.
@@ -25,7 +25,7 @@ Gerar o token para o usuário logado
 Quando usuário logar retornar na rota: name, email, token
 
 ########################POST /tasks → Create new task#################################
-Fields: name, description.
+ Fields: name, description.
 
 A description da task é opcional.
 Uma nova task deve começar no status: "NOT_STARTED"
