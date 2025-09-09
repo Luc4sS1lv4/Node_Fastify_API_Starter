@@ -13,7 +13,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node --watch --loader ts-node/esm src/app.ts"
   },
   "keywords": [],
   "author": "",

@@ -6,7 +6,6 @@ export default class TaskController {
     public creatTask = async (request: any, rep: any) => {
         try {
             const { nome, descricao } = request.body
-            
             const id  = request.userId
             const newTask = await this.taskServic.createtask(nome, descricao, id)
             return rep.status(200).send(newTask)
