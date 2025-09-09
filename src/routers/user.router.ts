@@ -10,5 +10,7 @@ async function RouterRout(fastify: FastifyInstance) {
 
     fastify.post("/tasks",{preHandler: sessionAuth.authLogin}, taskControllerCreat.creatTask)
 
+    fastify.get("/tasks",{preHandler: sessionAuth.authLogin}, taskListController.Tasklist)
+
 }
 export default RouterRout

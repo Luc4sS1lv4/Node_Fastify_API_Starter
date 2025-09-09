@@ -5,7 +5,7 @@ export class UserService {
     constructor(private userRepo: IUser) { }
 
     async createUserService(nome: string, email: string, senha: string) {
-        console.log(nome, email)
+        
 
         if (!nome || !email || !senha) throw new Error("Os campos precisam estar preenchidos")
 
@@ -14,7 +14,7 @@ export class UserService {
 
         const senhaHasheada = await bcrypt.hash(senha, 11)
         const newUser = await this.userRepo.create(nome, email, senhaHasheada)
-        return { usuário: newUser }
+        return { newUser }
 
     }
 }

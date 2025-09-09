@@ -12,6 +12,7 @@ export default class TaskService {
 
     public listTask = async (id: number)=>{
         const allUser = await this.Taskrepository.findAll(id)
+        if(!allUser) throw new Error("Usuário sem tarefas, crie uma tarefa por favor")
         return allUser
     }
 

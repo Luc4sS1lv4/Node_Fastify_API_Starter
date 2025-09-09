@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 import type { ITask } from "../interfaces/task.interfaces.js";
-import { connect } from "http2";
 
 export class TaskRepository implements ITask {
     constructor(private prisma: PrismaClient) { }
@@ -11,7 +10,9 @@ export class TaskRepository implements ITask {
                 autorid:userID
                 },
             select: {
-                nome: true
+                nome: true,
+                descricao:true,
+                status:true
             }
         })
         return alltasks

@@ -11,6 +11,7 @@ export class AuthSession {
 
         const decoded = Jwt.verify(Token, "lucas132") as { id: number }
         request.userId = decoded.id
+        console.log(request.userId)
 
         
     }

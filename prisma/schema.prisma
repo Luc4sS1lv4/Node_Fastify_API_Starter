@@ -25,7 +25,8 @@ model User {
 model Task {
   id      Int       @id @default(autoincrement())
   nome    String    
-  descricao     String 
+  descricao     String
+  status      String    @default("Not_started") 
   autorid     Int
   autor       User    @relation(fields: [autorid], references: [id])
 }
