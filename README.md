@@ -77,4 +77,4 @@ exemplo utilizando Postman:
 
 Se quer o projeto rodando em sua máquina clone o repositório e siga os passos acima:
 
-no seu diretório execute o terminal e digite git clone <url deste projeto>
+no seu diretório execute o terminal e digite git clone url-deste-projeto
