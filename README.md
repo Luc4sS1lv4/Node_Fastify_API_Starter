@@ -1,80 +1,84 @@
-Este projeto foi desenvolvido com o objetivo de aperfeioar minhas habilidades em JS/Node aplicando meus conhecimentos no TypeScript (js com tipagem estatica).
+# Node + TypeScript API (Task Manager)
 
-O TypeScript é o Js com o superset, ele adiciona algumas mmelhorias que auxiliam os devs no desenvolvimento mas ainda não é compilado pelo node por padrão.
+Este projeto foi desenvolvido com o objetivo de **aperfeiçoar minhas habilidades em JS/Node** aplicando meus conhecimentos em **TypeScript** (JS com tipagem estática).
 
-Além de aprimorar e exercitar os conhecimentos em Ts, utilizei ferramentas como prisma, docker, postgresql, node e fastify.
+TypeScript é um superset do JavaScript que adiciona melhorias que auxiliam os desenvolvedores, mas não é compilado pelo Node.js por padrão.  
 
-Também apliquei parte do conhecimento da estrutura SOLID dividindo as responsabilidades das classes pelo código, injeção de dependência, poo e construção de ApiRest.
+Além disso, foram utilizadas ferramentas modernas como:
 
-O desafio consiste em:
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Fastify](https://img.shields.io/badge/Fastify-20232A?style=for-the-badge)
+![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![Bcrypt](https://img.shields.io/badge/Bcrypt-FF9900?style=for-the-badge)
+![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge)
 
-Criar endpoints
-####################POST /signup -> Criar conta#############################
- Fields: name, email and password.
+---
 
-Verificar se o usuário já tem uma conta. Se sim retornar erro 400.
-A senha precisa ser armazenada no db com hash.
+## Estrutura e boas práticas
+- Aplicação seguindo boas práticas.  
+- Divisão de responsabilidades das classes (POO).  
+- Injeção de dependência.  
+- Construção de **API REST** modular e escalável.  
 
-####################POST /session - Fazer login##################################
+---
 
-Autenticação será feita com email e password.
-Verificar se o email já tem uma conta, se não retornar um erro 400.
-Validar se a senha informada é valida com o hash salvo no banco
-Retornar 400 um erro se a senha estiver errada
-Gerar o token para o usuário logado
-Quando usuário logar retornar na rota: name, email, token
+## Funcionalidades / Endpoints
 
-########################POST /tasks → Create new task#################################
- Fields: name, description.
+### **POST /signup** → Criar conta
+- Campos: `name`, `email`, `password`  
+- Valida se o usuário já existe, caso exista retorna **400**  
+- Senha armazenada com **hash**  
 
-A description da task é opcional.
-Uma nova task deve começar no status: "NOT_STARTED"
-Ao criar uma nova task a rota deve retornar: task name, description, status, author, author_id
+### **POST /session** → Fazer login
+- Autenticação com `email` e `password`  
+- Valida se email existe, se não retorna **400**  
+- Valida senha com hash armazenado, se errado retorna **400**  
+- Retorna: `name`, `email` e `token`  
 
-#########################GET /tasks → List my tasks###################################
+### **POST /tasks** → Criar nova task
+- Campos: `name`, `description` (opcional)  
+- Status inicial: `NOT_STARTED`  
+- Retorna: `task name`, `description`, `status`, `author`, `author_id`  
 
-Verificar se o usuário já tem tasks, se não retornar status code 200 informando que o usuário não criou nenhuma task.
-Retornar as tasks do usuário
+### **GET /tasks** → Listar minhas tasks
+- Somente tasks do usuário autenticado  
+- Se não houver tasks, retorna **status 200** informando que não há tasks  
 
-Regra de negócio:
+#### **Regras de negócio**
+- Task deve conter: identificador único, nome, descrição, status e usuário dono  
+- Apenas o usuário autenticado pode criar/listar suas tasks  
+- Endpoint `/tasks` é **privado** (autenticação JWT requerida)  
 
-Uma task deve conter identificador único, nome, descrição, status e qual usuário pertence.
-Somente o usuário autenticado pode listar as suas atividades
-Qualquer usuário pode criar uma conta
-As todas: /tasks (get and post), são privadas. Somente o usuário logada pode acessá-las.
+---
 
-############################ Para Rodar o Projeto #####################################
+## Como rodar o projeto
 
-Configure O arquivo Docker compose com a imagen do Postgres e inicie o container com o seguinte comando:
+1. Configure o **Docker Compose** com a imagem do PostgreSQL e inicie o container:
 
+```bash
 docker-compose up -d
 
-Em seguida instale todos as depenciais com o comando:
+2. Instale as dependências:
 
 npm i
 
-Como prisma ja está inciado, crie o arquivo .env e pegue a estrutura da url de conexão do prisma no site oficial: prisma.io
+3. Crie o arquivo .env com a URL de conexão do Prisma (exemplo: DATABASE_URL=...)
 
-após isso rode o comando npx prisma db push para adicionar as tabelas ao banco postgres no container on. Esse comando adiciona as tabelas sem deixar historico diferente o prisma migration.
+4. Crie as tabelas no banco sem histórico de migrations:
 
-Após isso rode o comando:
+npx prisma db push
+
+5. Atualize a biblioteca do Prisma Client:
 
 npx prisma generate
 
-Responsável por atualizar a biblioteca client.
 
-Por ultimo rode o script de execução ja configurado no package.json:
+6. Rode a aplicação localmente (com reinício automático em mudanças):
 
 npm run dev
 
-Comando resposável por executar o código usando ts-node e reiniciar o servidor local sempre que houver mudanças no código.
 
-Utilize postman ou insomnia para testar as rotas
-
-exemplo utilizando Postman:
-
-![alt text](image.png)
-
-Se quer o projeto rodando em sua máquina clone o repositório e siga os passos acima:
-
-no seu diretório execute o terminal e digite git clone url-deste-projeto
+Teste os endpoints com Postman ou Insomnia
